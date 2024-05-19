@@ -1,7 +1,7 @@
 const int LED_PINS[] = {6, 8, 10, 12};
 const int BUTTON_PINS[] = {5, 7, 9, 11};
 
-int sequence[100];
+int sequence[4];
 int sequenceLength = 0;
 
 void setup() {
