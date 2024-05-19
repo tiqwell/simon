@@ -1,7 +1,7 @@
-const int LED_PINS[] = {6, 10, 8, 12};
+const int LED_PINS[] = {6, 8, 10, 12};
 const int BUTTON_PINS[] = {5, 7, 9, 11};
 
-int sequence[4];
+int sequence[100];
 int sequenceLength = 0;
 
 void setup() {
@@ -9,16 +9,17 @@ void setup() {
     pinMode(LED_PINS[i], OUTPUT);
     digitalWrite(LED_PINS[i], LOW);
   }
+  
   for (int i = 0; i < 4; i++) {
     pinMode(BUTTON_PINS[i], INPUT_PULLUP);
   }
+
   randomSeed(analogRead(0));
   generateSequence();
 }
 
 void loop() {
   playSequence();
-  
 
   for (int i = 0; i < sequenceLength; i++) {
     int buttonPressed = waitForButtonPress();
@@ -28,6 +29,7 @@ void loop() {
       return;
     }
   }
+
   displaySuccess();
   generateSequence();
 }
@@ -37,6 +39,7 @@ void generateSequence() {
   for (int i = 0; i < 4; i++) {
     sequence[i] = random(4);
     sequenceLength++;
+    delay(500);
   }
 }
 
@@ -55,7 +58,7 @@ int waitForButtonPress() {
     for (int i = 0; i < 4; i++) {
       if (digitalRead(BUTTON_PINS[i]) == LOW) {
         buttonPressed = i;
-        delay(200); 
+        delay(200);
         break;
       }
     }
